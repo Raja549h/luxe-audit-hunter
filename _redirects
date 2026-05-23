@@ -1,0 +1,8 @@
+# Cloudflare Pages Configuration
+
+[build]
+command = ""
+pages_build_output_dir = "."
+
+[site]
+bucket = "."

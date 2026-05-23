@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f5f3ef;
+    color: #1e1b1a;
+    padding: 2rem;
+}
+
+.app-container {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+/* Header */
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2dbd4;
+    padding-bottom: 1.5rem;
+}
+
+.logo-area h1 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+}
+
+.badge-stack {
+    margin: 0.5rem 0 0.25rem;
+}
+
+.badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.2rem 0.6rem;
+    border-radius: 20px;
+    margin-right: 0.5rem;
+}
+
+.badge.gold {
+    background: #d4af37;
+    color: #1e1b1a;
+}
+
+.badge.dark {
+    background: #2c2827;
+    color: #f5f3ef;
+}
+
+.tagline {
+    font-size: 0.8rem;
+    color: #6b5e5a;
+    margin-top: 0.3rem;
+}
+
+.hero-quote h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: right;
+}
+
+.platform-list {
+    font-size: 0.75rem;
+    max-width: 400px;
+    margin-top: 0.5rem;
+    color: #4a413e;
+    text-align: right;
+}
+
+/* Stats row */
+.stats-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    border-radius: 24px;
+    padding: 1rem 1.6rem;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+    border: 1px solid #e6dfda;
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: 800;
+    display: block;
+    color: #2c2827;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    color: #7a6e69;
+}
+
+/* Content grid */
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 2rem;
+}
+
+/* Assignments list */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 0.75rem;
+}
+
+.stats-inline {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.7rem;
+    background: #f0ede9;
+    padding: 0.5rem 1rem;
+    border-radius: 40px;
+    margin-bottom: 1.5rem;
+    color: #3e3532;
+}
+
+.assignments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.assignment-card {
+    background: white;
+    border-radius: 20px;
+    border: 1px solid #e9e2dc;
+    padding: 1rem;
+    transition: 0.1s ease;
+}
+
+.assignment-card:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}
+
+.urgency-high { color: #b45f2b; font-weight: 700; background: #fce9dd; padding: 0.2rem 0.6rem; border-radius: 16px; font-size: 0.7rem;}
+.urgency-medium { color: #6b6b3d; background: #f0f0e2; padding: 0.2rem 0.6rem; border-radius: 16px; font-size: 0.7rem;}
+
+.platform { font-size: 0.7rem; color: #8e7e76; }
+
+.hotel-name { font-weight: 700; font-size: 1.1rem; margin-top: 0.25rem;}
+.chain { font-size: 0.75rem; color: #6b5e5a; margin-bottom: 0.5rem;}
+.total-value { font-weight: 800; color: #2d6a4f; font-size: 1.1rem;}
+.location, .eval-type, .duration { font-size: 0.75rem; margin: 0.2rem 0;}
+.tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin: 0.5rem 0;}
+.tag { background: #efebe7; padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.65rem;}
+.comp-row { display: flex; gap: 1rem; margin-top: 0.5rem; font-size: 0.8rem; font-weight: 500;}
+.closes { font-size: 0.7rem; color: #bc6c25; margin-top: 0.4rem;}
+
+/* Sidebar */
+.sidebar-card {
+    background: white;
+    border-radius: 24px;
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e9e2dc;
+}
+
+.sidebar-card h4 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.sidebar-card h4 span {
+    display: block;
+    font-weight: 400;
+    font-size: 0.7rem;
+    color: #7a6e69;
+    margin-top: 0.2rem;
+}
+
+.tab-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin: 0.75rem 0;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.3rem 0.8rem;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.tab-btn.active {
+    background: #2c2827;
+    color: white;
+}
+
+.tab-content {
+    min-height: 150px;
+}
+
+.tab-list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #eee;
+}
+
+.tab-list-item span:first-child {
+    font-weight: 600;
+    flex: 1;
+}
+
+.tab-list-item span:nth-child(2) {
+    color: #7a6e69;
+    font-size: 0.65rem;
+    flex: 1;
+    text-align: right;
+    padding: 0 0.5rem;
+}
+
+.apply-mini {
+    background: #2d6a4f;
+    color: white;
+    border: none;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.65rem;
+    cursor: pointer;
+    margin-left: 0.5rem;
+}
+
+.apply-mini:hover {
+    background: #236b42;
+}
+
+/* Pipeline */
+.pipeline-columns {
+    display: flex;
+    gap: 0.6rem;
+    overflow-x: auto;
+    font-size: 0.7rem;
+    padding-bottom: 0.5rem;
+}
+
+.pipe-col {
+    min-width: 100px;
+    background: #faf8f6;
+    border-radius: 16px;
+    padding: 0.5rem;
+    flex-shrink: 0;
+}
+
+.pipe-col strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-size: 0.75rem;
+}
+
+/* Checklist */
+.checklist-ul {
+    list-style: none;
+    margin-top: 0.5rem;
+}
+
+.checklist-ul li {
+    font-size: 0.7rem;
+    padding: 0.4rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-bottom: 1px dashed #ece5df;
+}
+
+input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #2d6a4f;
+}
+
+@media (max-width: 860px) {
+    .content-grid { grid-template-columns: 1fr; }
+    .hero-quote h2 { text-align: left; margin-top: 1rem; }
+    .main-header { flex-direction: column; }
+    .platform-list { text-align: left; }
+    .stats-row { flex-direction: column; }
+    .stats-inline { flex-wrap: wrap; }
+}

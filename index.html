@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0A0C10" />
+    <meta name="description" content="Luxe Audit Hunter — 5-star luxury hotel mystery guest assignments in Pune, India" />
+    <script src="data.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Manrope:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <title>Luxe Audit Hunter — Pune 5★ Mystery Guest Assignments</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        dark: '#0A0C10',
+                        'dark-card': '#12141A',
+                        'dark-border': '#2A2D35',
+                        gold: '#D4AF37',
+                        'gold-light': '#E5C76B'
+                    },
+                    fontFamily: {
+                        'display': ['Playfair Display', 'serif'],
+                        'body': ['Manrope', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Manrope', sans-serif; 
+            background: #0A0C10; 
+            color: #E8E6E1;
+            min-height: 100vh;
+        }
+        .font-display { font-family: 'Playfair Display', serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #12141A; }
+        ::-webkit-scrollbar-thumb { background: #2A2D35; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3A3D45; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animate-pulse { animation: pulse 2s infinite; }
+        
+        @keyframes live-dot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.7; }
+        }
+        .live-dot { animation: live-dot 1.5s infinite; }
+        
+        .glass-card {
+            background: rgba(18, 20, 26, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(42, 45, 53, 0.6);
+        }
+        
+        .bg-gradient-radial {
+            background: radial-gradient(ellipse at top, #1a1d26 0%, #0A0C10 50%);
+        }
+        
+        .btn-apply {
+            background: linear-gradient(135deg, #D4AF37 0%, #E5C76B 100%);
+            color: #0A0C10;
+            font-weight: 700;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn-apply:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+        }
+        
+        .btn-daily {
+            background: linear-gradient(135deg, #2D6A4F 0%, #236b42 100%);
+            color: white;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-daily:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(45, 106, 79, 0.5);
+        }
+        
+        .fresh-badge {
+            background: linear-gradient(135deg, #10B981 0%, #059669 100%);
+            color: white;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+        
+        .expiring-soon {
+            border-left: 4px solid #EF4444;
+        }
+        
+        .high-value {
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .urgent-badge {
+            background: #EF4444;
+            color: white;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            text-transform: uppercase;
+            animation: pulse 1s infinite;
+        }
+    </style>
+</head>
+<body class="bg-gradient-radial min-h-screen">
+    <div id="root"></div>
+
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+
+        // Data loaded from data.js
+        const puneOpportunities = typeof assignments !== 'undefined' ? assignments : [];
+        const puneChecklistItems = typeof checklistItems !== 'undefined' ? checklistItems : [];
+
+        // Header Component
+        function Header({ lastUpdated, onRefresh, isRefreshing }) {
+            return (
+                <header className="border-b border-dark-border pb-6 mb-8">
+                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
+                        <div>
+                            <div className="flex items-center gap-3 mb-2">
+                                <h1 className="font-display text-3xl md:text-4xl font-semibold tracking-tight text-white">
+                                    Luxe Audit Hunter
+                                </h1>
+                                <div className="flex items-center gap-1 bg-[#10B981] px-3 py-1 rounded-full">
+                                    <span className="w-2 h-2 bg-white rounded-full live-dot"></span>
+                                    <span className="text-white text-xs font-semibold">PUNE</span>
+                                </div>
+                            </div>
+                            <div className="flex gap-2 mt-3">
+                                <span className="bg-gold text-dark text-xs font-semibold px-3 py-1 rounded-full">
+                                    5★ Mystery Guest
+                                </span>
+                                <span className="bg-[#2A2D35] text-[#E8E6E1] text-xs font-medium px-3 py-1 rounded-full">
+                                    Pune, India
+                                </span>
+                            </div>
+                            <p className="text-[#8B8B8B] text-sm mt-2">Only Pune opportunities • Last updated: {lastUpdated}</p>
+                        </div>
+                        <div className="lg:text-right">
+                            <h2 className="font-display text-2xl md:text-3xl font-medium text-white leading-tight">
+                                Get paid to stay<br />at 5-star hotels<br />in Pune.
+                            </h2>
+                            <p className="text-[#8B8B8B] text-xs mt-3 max-w-md lg:ml-auto">
+                                Exclusive mystery guest gigs at Hyatt, Marriott, Taj, Ritz-Carlton, Hilton & more in Pune.
+                            </p>
+                        </div>
+                    </div>
+                </header>
+            );
+        }
+
+        // Stats Row
+        function StatsRow({ opportunities }) {
+            const totalReimburse = opportunities.reduce((sum, a) => {
+                const value = parseFloat(a.reimburse.replace(/[₹,]/g, ''));
+                return sum + value;
+            }, 0);
+            
+            const formattedTotal = totalReimburse >= 100000 
+                ? '₹' + (totalReimburse / 100000).toFixed(1) + 'L'
+                : '₹' + (totalReimburse / 1000).toFixed(0) + 'K';
+            
+            const highUrgency = opportunities.filter(a => a.urgency === 'High').length;
+            const expiringToday = opportunities.filter(a => a.closesDays === 0).length;
+            const overnightGigs = opportunities.filter(a => a.tags.includes('overnight')).length;
+
+            return (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div className="glass-card rounded-2xl p-4 text-center">
+                        <span className="font-mono text-2xl md:text-3xl font-bold text-white block">{opportunities.length}</span>
+                        <span className="text-[#8B8B8B] text-sm">Active Gigs</span>
+                    </div>
+                    <div className="glass-card rounded-2xl p-4 text-center">
+                        <span className="font-mono text-2xl md:text-3xl font-bold text-gold block">{formattedTotal}</span>
+                        <span className="text-[#8B8B8B] text-sm">Total Value</span>
+                    </div>
+                    <div className="glass-card rounded-2xl p-4 text-center">
+                        <span className="font-mono text-2xl md:text-3xl font-bold text-red-500 block">{highUrgency}</span>
+                        <span className="text-[#8B8B8B] text-sm">High Priority</span>
+                    </div>
+                    <div className="glass-card rounded-2xl p-4 text-center">
+                        <span className="font-mono text-2xl md:text-3xl font-bold text-[#10B981] block">{overnightGigs}</span>
+                        <span className="text-[#8B8B8B] text-sm">Overnight Stays</span>
+                    </div>
+                </div>
+            );
+        }
+
+        // Assignment Card
+        function AssignmentCard({ assignment, index, onApply }) {
+            const isUrgent = assignment.urgency === 'High';
+            const isExpiring = assignment.closesDays <= 1;
+            const isOvernight = assignment.tags.includes('overnight');
+            
+            return (
+                <div 
+                    className={`glass-card rounded-xl p-6 hover:border-gold/30 transition-all duration-300 animate-fade-in ${isExpiring ? 'expiring-soon' : isUrgent ? 'high-value' : ''}`}
+                    style={{ animationDelay: `${index * 80}ms` }}
+                >
+                    <div className="flex justify-between items-start mb-4 flex-wrap gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                            {isUrgent && <span className="bg-[#FCE9DD] text-[#B45F2B] text-xs font-bold px-3 py-1 rounded-full">HIGH</span>}
+                            {isExpiring && <span className="urgent-badge">URGENT</span>}
+                            {isOvernight && <span className="bg-[#10B981]/20 text-[#10B981] text-xs font-semibold px-3 py-1 rounded-full">OVERNIGHT</span>}
+                        </div>
+                        <span className="text-[#8B8B8B] text-xs bg-[#1E2028] px-3 py-1 rounded-full">{assignment.platform}</span>
+                    </div>
+                    
+                    <h3 className="font-display text-xl font-bold text-white mb-2">
+                        {assignment.hotel}
+                    </h3>
+                    <p className="text-[#8B8B8B] text-sm mb-4">{assignment.chain}</p>
+                    
+                    <div className="flex items-center gap-2 mb-4">
+                        <div className="font-mono text-3xl font-bold text-[#2D6A4F]">
+                            {assignment.total}
+                        </div>
+                        <div className="text-sm text-[#8B8B8B]">total value</div>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-[#B8B6B2] mb-4">
+                        <p className="flex items-center gap-2">📍 {assignment.location}</p>
+                        <p className="flex items-center gap-2">📋 {assignment.eval}</p>
+                        <p className="flex items-center gap-2">⏱️ {assignment.duration}</p>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-2 mb-4">
+                        {assignment.tags.map((tag, i) => (
+                            <span key={i} className="bg-[#1E2028] text-[#8B8B8B] text-xs px-3 py-1 rounded-lg">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                    
+                    <div className="flex gap-4 mb-4 text-base font-semibold p-3 bg-dark/50 rounded-lg border border-dark-border">
+                        <span className="text-white">Pay: <span className="text-emerald-400 font-bold text-lg">{assignment.pay}</span></span>
+                        <span className="text-gold">Reimburse: <span className="text-gold-light font-bold text-lg">{assignment.reimburse}</span></span>
+                    </div>
+                    
+                    <div className="pt-4 border-t border-dark-border">
+                        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                            <div className={`flex items-center gap-2 ${isExpiring ? 'text-red-400' : 'text-[#BC6C25]'}`}>
+                                <span className="text-lg">{isExpiring ? '🔥' : '📅'}</span>
+                                <div>
+                                    <span className="text-xs text-[#8B8B8B] block">Deadline</span>
+                                    <span className="font-bold text-sm">{assignment.deadlineTime}</span>
+                                </div>
+                            </div>
+                            <button 
+                                type="button"
+                                onClick={() => onApply(assignment)}
+                                className="btn-apply"
+                            >
+                                ⚡ Apply Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Assignments List
+        function AssignmentsList({ opportunities, onApply }) {
+            // Sort by urgency, then by closes date
+            const sorted = [...opportunities].sort((a, b) => {
+                if (a.urgency === 'High' && b.urgency !== 'High') return -1;
+                if (a.urgency !== 'High' && b.urgency === 'High') return 1;
+                return a.closesDays - b.closesDays;
+            });
+
+            return (
+                <section>
+                    <div className="flex flex-wrap justify-between items-baseline mb-6 gap-2">
+                        <h3 className="font-display text-2xl font-semibold text-white">
+                            🔥 Active Assignments in Pune
+                        </h3>
+                        <span className="text-[#8B8B8B] text-sm">{opportunities.length} opportunities • Sorted by urgency</span>
+                    </div>
+                    
+                    <div className="flex flex-wrap gap-3 text-sm bg-[#12141A] rounded-full px-5 py-3 mb-6">
+                        <span className="text-red-400 font-semibold">🔥 Urgent: {opportunities.filter(a => a.closesDays <= 1).length}</span>
+                        <span className="text-[#8B8B8B]">|</span>
+                        <span className="text-[#E5C76B]">★ Premium: {opportunities.filter(a => a.urgency === 'High').length}</span>
+                        <span className="text-[#8B8B8B]">|</span>
+                        <span className="text-[#10B981]">🌙 Overnight: {opportunities.filter(a => a.tags.includes('overnight')).length}</span>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        {sorted.map((a, i) => (
+                            <AssignmentCard key={a.id} assignment={a} index={i} onApply={onApply} />
+                        ))}
+                    </div>
+                </section>
+            );
+        }
+
+        // Sidebar - Top Picks
+        function Sidebar({ opportunities, onApply }) {
+            const topPicks = [...opportunities]
+                .filter(a => a.urgency === 'High')
+                .sort((a, b) => a.closesDays - b.closesDays)
+                .slice(0, 5);
+
+            return (
+                <aside className="space-y-6">
+                    <div className="glass-card rounded-2xl p-5">
+                        <div className="flex items-center gap-2 mb-4">
+                            <span className="text-2xl">⭐</span>
+                            <h4 className="font-display text-lg font-semibold text-white">Top Picks - Apply Now</h4>
+                        </div>
+                        <p className="text-[#8B8B8B] text-xs mb-4">Highest paying, most urgent opportunities</p>
+                        
+                        <div className="space-y-3">
+                            {topPicks.map((item, i) => (
+                                <div key={i} className="p-3 bg-[#1E2028] rounded-xl border-l-4 border-gold">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <p className="text-white text-sm font-medium flex-1">{item.hotel}</p>
+                                        {item.closesDays <= 1 && <span className="text-red-400 text-xs font-bold">URGENT</span>}
+                                    </div>
+                                    <div className="flex justify-between items-center">
+                                        <span className="text-gold font-mono text-sm font-bold">{item.total}</span>
+                                        <button 
+                                            type="button"
+                                            onClick={() => onApply(item)}
+                                            className="text-xs bg-[#D4AF37] text-dark px-3 py-1 rounded-lg font-bold"
+                                        >
+                                            Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Pipeline */}
+                    <Pipeline />
+                    
+                    {/* Checklist */}
+                    <Checklist />
+                </aside>
+            );
+        }
+
+        function Pipeline() {
+            return (
+                <div className="glass-card rounded-2xl p-5">
+                    <h4 className="font-display text-lg font-semibold text-white mb-4">
+                        📊 My Applications
+                    </h4>
+                    <div className="grid grid-cols-5 gap-2 text-center">
+                        {['Saved','Applied','Short','Done','Paid'].map((stage, i) => (
+                            <div key={stage} className="bg-[#1E2028] rounded-lg p-2">
+                                <p className="text-[#8B8B8B] text-xs">{stage}</p>
+                                <p className="text-white font-bold text-lg">0</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        function Checklist() {
+            const items = puneChecklistItems;
+            const [checked, setChecked] = useState(() => {
+                const saved = localStorage.getItem('luxeChecklistPune');
+                return saved ? JSON.parse(saved) : Array(items.length).fill(false);
+            });
+            
+            const toggleCheck = (index) => {
+                const newChecked = [...checked];
+                newChecked[index] = !newChecked[index];
+                setChecked(newChecked);
+                localStorage.setItem('luxeChecklistPune', JSON.stringify(newChecked));
+            };
+            
+            const done = checked.filter(c => c).length;
+            
+            return (
+                <div className="glass-card rounded-2xl p-5">
+                    <div className="flex justify-between items-center mb-4">
+                        <h4 className="font-display text-lg font-semibold text-white">✅ Profile Setup</h4>
+                        <span className="text-[#10B981] text-sm font-bold">{done}/{items.length}</span>
+                    </div>
+                    <ul className="space-y-3">
+                        {items.map((item, index) => (
+                            <li key={index} className="flex items-start gap-3 py-2">
+                                <input 
+                                    type="checkbox" 
+                                    checked={checked[index]}
+                                    onChange={() => toggleCheck(index)}
+                                    className="mt-1 w-4 h-4 accent-[#2D6A4F] cursor-pointer"
+                                />
+                                <span className={`text-sm ${checked[index] ? 'text-[#6B6B6B] line-through' : 'text-[#B8B6B2]'}`}>
+                                    {item}
+                                </span>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            );
+        }
+
+        // Main App
+        function App() {
+            const [opportunities] = useState(puneOpportunities);
+            const [lastUpdate] = useState(new Date().toLocaleTimeString());
+            
+            const handleApply = (assignment) => {
+                const url = platformUrls[assignment.platform];
+                if (url) {
+                    window.open(url, '_blank');
+                    alert(`Applied to ${assignment.hotel}! Registration page opened in new tab.`);
+                }
+            };
+            
+            return (
+                <div className="max-w-7xl mx-auto px-4 py-8">
+                    <Header lastUpdated={lastUpdate} />
+                    <StatsRow opportunities={opportunities} />
+                    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <div className="lg:col-span-2">
+                            <AssignmentsList opportunities={opportunities} onApply={handleApply} />
+                        </div>
+                        <div className="lg:col-span-1">
+                            <Sidebar opportunities={opportunities} onApply={handleApply} />
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

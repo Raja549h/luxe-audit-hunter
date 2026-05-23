@@ -1,0 +1,11 @@
+{
+  "name": "luxe-audit-hunter",
+  "version": "1.0.0",
+  "description": "5-star luxury hotel mystery guest assignment hunter for India",
+  "scripts": {
+    "deploy": "npx wrangler pages deploy ."
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.0.0"
+  }
+}

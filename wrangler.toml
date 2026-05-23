@@ -1,0 +1,6 @@
+name = "luxe-audit-hunter"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "."
+
+[vars]
+APP_NAME = "Luxe Audit Hunter"
