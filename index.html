@@ -152,14 +152,90 @@
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <script type="text/babel">
-        const { useState, useEffect } = React;
+        const { useState, useEffect, useCallback } = React;
 
-        // Data loaded from data.js
-        const puneOpportunities = typeof assignments !== 'undefined' ? assignments : [];
-        const puneChecklistItems = typeof checklistItems !== 'undefined' ? checklistItems : [];
+        const platformUrls = {
+            'FloorWalk': 'https://floorwalk.in/Mystery_Shopping_Shopper.html',
+            'Coyle Hospitality': 'https://coylehospitality.com/evaluators/',
+            'Shaw Hotels & Consultancy': 'https://shawhotels.com/shopper-sign-up/',
+            'Bare International': 'https://www.bareinternational.in/evaluators/',
+            'HS Brands': 'https://hsbrandsasia.com/new-shopper-signup/',
+            'RedQuanta': 'https://www.redquanta.com/',
+            'Tophawks': 'https://tophawks.com/apply-as-mystery-shopper-top-hawks/',
+            'Ipsos iShopForIpsos': 'https://ishopforipsos.com/'
+        };
 
-        // Header Component
-        function Header({ lastUpdated, onRefresh, isRefreshing }) {
+        const DEFAULT_REFRESHED = "2026-05-28T15:00:00+05:30";
+
+        function getClosesInfo(deadline) {
+            const now = new Date();
+            const end = new Date(deadline);
+            const diffMs = end - now;
+            const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+            const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+            const diffMinutes = Math.floor(diffMs / (1000 * 60));
+            return { diffMs, diffDays, diffHours, diffMinutes, expired: diffMs <= 0 };
+        }
+
+        function getUrgency(closesDays) {
+            if (closesDays <= 1) return 'URGENT';
+            if (closesDays <= 3) return 'High';
+            return 'Medium';
+        }
+
+        function formatCountdown(diffMs) {
+            if (diffMs <= 0) return 'CLOSED';
+            const totalSec = Math.floor(diffMs / 1000);
+            const d = Math.floor(totalSec / 86400);
+            const h = Math.floor((totalSec % 86400) / 3600);
+            const m = Math.floor((totalSec % 3600) / 60);
+            if (d > 0) return `${d}d ${h}h`;
+            if (h > 0) return `${h}h ${m}m`;
+            return `${m}m`;
+        }
+
+        function formatLastUpdated(isoStr) {
+            if (!isoStr) return 'unknown';
+            const d = new Date(isoStr);
+            const now = new Date();
+            const diffMin = Math.floor((now - d) / 60000);
+            if (diffMin < 1) return 'just now';
+            if (diffMin < 60) return `${diffMin}m ago`;
+            const diffH = Math.floor(diffMin / 60);
+            if (diffH < 24) return `${diffH}h ago`;
+            return d.toLocaleDateString();
+        }
+
+        function formatDeadline(deadline) {
+            const d = new Date(deadline);
+            const now = new Date();
+            const diffDays = Math.floor((d - now) / (1000 * 60 * 60 * 24));
+            if (diffDays < 0) return 'CLOSED';
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Tomorrow';
+            if (diffDays <= 7) return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
+        function enhanceOpportunities(opps, now) {
+            return opps.map(o => {
+                const info = getClosesInfo(o.deadline);
+                const closesDays = info.expired ? -1 : info.diffDays;
+                const urgency = getUrgency(closesDays);
+                const lastDate = formatDeadline(o.deadline);
+                return { ...o, closesDays, urgency, lastDate, _closesInfo: info };
+            }).filter(o => !o._closesInfo.expired);
+        }
+
+        function Header({ opportunities, lastRefreshed, activeCount, totalValue }) {
+            const totalReimburse = opportunities.reduce((sum, a) => {
+                const value = parseFloat(a.reimburse.replace(/[₹,]/g, ''));
+                return sum + value;
+            }, 0);
+            const formattedTotal = totalReimburse >= 100000 
+                ? '₹' + (totalReimburse / 100000).toFixed(1) + 'L'
+                : '₹' + (totalReimburse / 1000).toFixed(0) + 'K';
+
             return (
                 <header className="border-b border-dark-border pb-6 mb-8">
                     <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-4">
@@ -181,13 +257,18 @@
                                     Pune, India
                                 </span>
                             </div>
-                            <p className="text-[#8B8B8B] text-sm mt-2">Only Pune opportunities • Last updated: {lastUpdated}</p>
+                            <p className="text-[#8B8B8B] text-sm mt-2">
+                                {activeCount} active in Pune • Refresh: {formatLastUpdated(lastRefreshed)}
+                            </p>
                         </div>
                         <div className="lg:text-right">
                             <h2 className="font-display text-2xl md:text-3xl font-medium text-white leading-tight">
                                 Get paid to stay<br />at 5-star hotels<br />in Pune.
                             </h2>
-                            <p className="text-[#8B8B8B] text-xs mt-3 max-w-md lg:ml-auto">
+                            <p className="text-[#10B981] font-mono text-lg font-bold mt-2">
+                                {formattedTotal} in active gigs
+                            </p>
+                            <p className="text-[#8B8B8B] text-xs mt-1 max-w-md lg:ml-auto">
                                 Exclusive mystery guest gigs at Hyatt, Marriott, Taj, Ritz-Carlton, Hilton & more in Pune.
                             </p>
                         </div>
@@ -196,7 +277,6 @@
             );
         }
 
-        // Stats Row
         function StatsRow({ opportunities }) {
             const totalReimburse = opportunities.reduce((sum, a) => {
                 const value = parseFloat(a.reimburse.replace(/[₹,]/g, ''));
@@ -207,9 +287,9 @@
                 ? '₹' + (totalReimburse / 100000).toFixed(1) + 'L'
                 : '₹' + (totalReimburse / 1000).toFixed(0) + 'K';
             
-            const highUrgency = opportunities.filter(a => a.urgency === 'High').length;
+            const highUrgency = opportunities.filter(a => a.urgency === 'URGENT' || a.urgency === 'High').length;
             const expiringToday = opportunities.filter(a => a.closesDays === 0).length;
-            const overnightGigs = opportunities.filter(a => a.tags.includes('overnight')).length;
+            const overnightGigs = opportunities.filter(a => a.tags && a.tags.includes('overnight')).length;
 
             return (
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
@@ -233,21 +313,30 @@
             );
         }
 
-        // Assignment Card
         function AssignmentCard({ assignment, index, onApply }) {
-            const isUrgent = assignment.urgency === 'High';
-            const isExpiring = assignment.closesDays <= 1;
-            const isOvernight = assignment.tags.includes('overnight');
+            const [now, setNow] = useState(Date.now());
             
+            useEffect(() => {
+                const timer = setInterval(() => setNow(Date.now()), 10000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const info = getClosesInfo(assignment.deadline);
+            const isUrgent = info.diffDays <= 1 && !info.expired;
+            const isHigh = assignment.urgency === 'High' || assignment.urgency === 'URGENT';
+            const isOvernight = assignment.tags && assignment.tags.includes('overnight');
+            const expiresSoon = info.diffMs > 0 && info.diffMs < 7200000;
+
             return (
                 <div 
-                    className={`glass-card rounded-xl p-6 hover:border-gold/30 transition-all duration-300 animate-fade-in ${isExpiring ? 'expiring-soon' : isUrgent ? 'high-value' : ''}`}
+                    className={`glass-card rounded-xl p-6 hover:border-gold/30 transition-all duration-300 animate-fade-in ${info.diffDays <= 1 && !info.expired ? 'expiring-soon' : isHigh ? 'high-value' : ''}`}
                     style={{ animationDelay: `${index * 80}ms` }}
                 >
                     <div className="flex justify-between items-start mb-4 flex-wrap gap-2">
                         <div className="flex items-center gap-2 flex-wrap">
-                            {isUrgent && <span className="bg-[#FCE9DD] text-[#B45F2B] text-xs font-bold px-3 py-1 rounded-full">HIGH</span>}
-                            {isExpiring && <span className="urgent-badge">URGENT</span>}
+                            {info.expired && <span className="bg-[#6B7280] text-white text-xs font-bold px-3 py-1 rounded-full">CLOSED</span>}
+                            {isUrgent && <span className="urgent-badge">URGENT</span>}
+                            {isHigh && !isUrgent && <span className="bg-[#FCE9DD] text-[#B45F2B] text-xs font-bold px-3 py-1 rounded-full">HIGH</span>}
                             {isOvernight && <span className="bg-[#10B981]/20 text-[#10B981] text-xs font-semibold px-3 py-1 rounded-full">OVERNIGHT</span>}
                         </div>
                         <span className="text-[#8B8B8B] text-xs bg-[#1E2028] px-3 py-1 rounded-full">{assignment.platform}</span>
@@ -272,7 +361,7 @@
                     </div>
                     
                     <div className="flex flex-wrap gap-2 mb-4">
-                        {assignment.tags.map((tag, i) => (
+                        {assignment.tags && assignment.tags.map((tag, i) => (
                             <span key={i} className="bg-[#1E2028] text-[#8B8B8B] text-xs px-3 py-1 rounded-lg">
                                 {tag}
                             </span>
@@ -286,12 +375,16 @@
                     
                     <div className="pt-4 border-t border-dark-border">
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-                            <div className={`flex items-center gap-2 ${isExpiring ? 'text-red-400' : 'text-[#BC6C25]'}`}>
-                                <span className="text-lg">{isExpiring ? '🔥' : '📅'}</span>
-                                <div>
-                                    <span className="text-xs text-[#8B8B8B] block">Deadline</span>
-                                    <span className="font-bold text-sm">{assignment.deadlineTime}</span>
+                            <div className="flex flex-col gap-1">
+                                <div className={`flex items-center gap-2 ${info.expired ? 'text-gray-500' : isUrgent ? 'text-red-400' : 'text-[#BC6C25]'}`}>
+                                    <span className="text-lg">{info.expired ? '🚫' : isUrgent ? '🔥' : '📅'}</span>
+                                    <span className="font-semibold">Apply by: {formatDeadline(assignment.deadline)}</span>
                                 </div>
+                                {!info.expired && (
+                                    <span className={`font-mono text-xs ${expiresSoon ? 'text-red-400 animate-pulse' : 'text-[#6B7280]'}`}>
+                                        closes in {formatCountdown(info.diffMs)}
+                                    </span>
+                                )}
                             </div>
                             <button 
                                 type="button"
@@ -306,45 +399,60 @@
             );
         }
 
-        // Assignments List
         function AssignmentsList({ opportunities, onApply }) {
-            // Sort by urgency, then by closes date
             const sorted = [...opportunities].sort((a, b) => {
-                if (a.urgency === 'High' && b.urgency !== 'High') return -1;
-                if (a.urgency !== 'High' && b.urgency === 'High') return 1;
+                const aUrgent = a.urgency === 'URGENT' || a.urgency === 'High';
+                const bUrgent = b.urgency === 'URGENT' || b.urgency === 'High';
+                if (aUrgent && !bUrgent) return -1;
+                if (!aUrgent && bUrgent) return 1;
                 return a.closesDays - b.closesDays;
             });
+
+            const urgentCount = opportunities.filter(a => a.urgency === 'URGENT').length;
+            const highCount = opportunities.filter(a => a.urgency === 'High').length;
+            const overnightCount = opportunities.filter(a => a.tags && a.tags.includes('overnight')).length;
 
             return (
                 <section>
                     <div className="flex flex-wrap justify-between items-baseline mb-6 gap-2">
                         <h3 className="font-display text-2xl font-semibold text-white">
-                            🔥 Active Assignments in Pune
+                            Active Assignments in Pune
                         </h3>
-                        <span className="text-[#8B8B8B] text-sm">{opportunities.length} opportunities • Sorted by urgency</span>
+                        <span className="text-[#8B8B8B] text-sm">{opportunities.length} opportunities</span>
                     </div>
                     
                     <div className="flex flex-wrap gap-3 text-sm bg-[#12141A] rounded-full px-5 py-3 mb-6">
-                        <span className="text-red-400 font-semibold">🔥 Urgent: {opportunities.filter(a => a.closesDays <= 1).length}</span>
+                        <span className="text-red-400 font-semibold">Urgent: {urgentCount}</span>
                         <span className="text-[#8B8B8B]">|</span>
-                        <span className="text-[#E5C76B]">★ Premium: {opportunities.filter(a => a.urgency === 'High').length}</span>
+                        <span className="text-[#E5C76B]">High: {highCount}</span>
                         <span className="text-[#8B8B8B]">|</span>
-                        <span className="text-[#10B981]">🌙 Overnight: {opportunities.filter(a => a.tags.includes('overnight')).length}</span>
+                        <span className="text-[#10B981]">Overnight: {overnightCount}</span>
+                        <span className="text-[#8B8B8B]">|</span>
+                        <span className="text-[#8B8B8B]">Total: {opportunities.reduce((s, a) => s + parseFloat(a.reimburse.replace(/[₹,]/g, '')), 0) >= 100000
+                            ? '₹' + (opportunities.reduce((s, a) => s + parseFloat(a.reimburse.replace(/[₹,]/g, '')), 0) / 100000).toFixed(1) + 'L'
+                            : '₹' + (opportunities.reduce((s, a) => s + parseFloat(a.reimburse.replace(/[₹,]/g, '')), 0) / 1000).toFixed(0) + 'K'}</span>
                     </div>
                     
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        {sorted.map((a, i) => (
-                            <AssignmentCard key={a.id} assignment={a} index={i} onApply={onApply} />
-                        ))}
-                    </div>
+                    {opportunities.length === 0 ? (
+                        <div className="glass-card rounded-2xl p-12 text-center">
+                            <div className="text-5xl mb-4">🔍</div>
+                            <h3 className="font-display text-2xl font-semibold text-white mb-2">No active offers right now</h3>
+                            <p className="text-[#8B8B8B]">New Pune assignments appear here as platforms publish them. Check back soon.</p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            {sorted.map((a, i) => (
+                                <AssignmentCard key={a.id} assignment={a} index={i} onApply={onApply} />
+                            ))}
+                        </div>
+                    )}
                 </section>
             );
         }
 
-        // Sidebar - Top Picks
-        function Sidebar({ opportunities, onApply }) {
+        function Sidebar({ opportunities, onApply, lastRefreshed }) {
             const topPicks = [...opportunities]
-                .filter(a => a.urgency === 'High')
+                .filter(a => a.urgency === 'URGENT' || a.urgency === 'High')
                 .sort((a, b) => a.closesDays - b.closesDays)
                 .slice(0, 5);
 
@@ -357,42 +465,63 @@
                         </div>
                         <p className="text-[#8B8B8B] text-xs mb-4">Highest paying, most urgent opportunities</p>
                         
-                        <div className="space-y-3">
-                            {topPicks.map((item, i) => (
-                                <div key={i} className="p-3 bg-[#1E2028] rounded-xl border-l-4 border-gold">
-                                    <div className="flex justify-between items-start mb-2">
-                                        <p className="text-white text-sm font-medium flex-1">{item.hotel}</p>
-                                        {item.closesDays <= 1 && <span className="text-red-400 text-xs font-bold">URGENT</span>}
+                        {topPicks.length === 0 ? (
+                            <p className="text-[#6B7280] text-sm text-center py-4">No urgent picks right now</p>
+                        ) : (
+                            <div className="space-y-3">
+                                {topPicks.map((item, i) => (
+                                    <div key={i} className="p-3 bg-[#1E2028] rounded-xl border-l-4 border-gold">
+                                        <div className="flex justify-between items-start mb-2">
+                                            <p className="text-white text-sm font-medium flex-1">{item.hotel}</p>
+                                            {item.closesDays <= 1 && <span className="text-red-400 text-xs font-bold">URGENT</span>}
+                                        </div>
+                                        <div className="flex justify-between items-center">
+                                            <span className="text-gold font-mono text-sm font-bold">{item.total}</span>
+                                            <button 
+                                                type="button"
+                                                onClick={() => onApply(item)}
+                                                className="text-xs bg-[#D4AF37] text-dark px-3 py-1 rounded-lg font-bold"
+                                            >
+                                                Apply
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="flex justify-between items-center">
-                                        <span className="text-gold font-mono text-sm font-bold">{item.total}</span>
-                                        <button 
-                                            type="button"
-                                            onClick={() => onApply(item)}
-                                            className="text-xs bg-[#D4AF37] text-dark px-3 py-1 rounded-lg font-bold"
-                                        >
-                                            Apply
-                                        </button>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* Pipeline */}
                     <Pipeline />
                     
-                    {/* Checklist */}
                     <Checklist />
+
+                    <div className="glass-card rounded-2xl p-5 text-center">
+                        <p className="text-[#6B7280] text-xs">
+                            Data refreshed {formatLastUpdated(lastRefreshed)}
+                        </p>
+                        <p className="text-[#4B5563] text-xs mt-1">
+                            Auto-refreshes every 6 hours via GitHub Actions
+                        </p>
+                    </div>
                 </aside>
             );
         }
+
+        const checklistItems = [
+            "Sign up at floorwalk.in with full name & valid PAN",
+            "Set home city to Pune for geo-prioritised assignments",
+            "Upload professional headshot — clean, well-lit, formal attire",
+            "Complete demographic profile: age 28-50, income > ₹15 LPA",
+            "Mark availability calendar 30 days ahead",
+            "Pass FloorWalk's hotel-audit certification quiz (90% pass mark)",
+            "Maintain 4.5+ rating across first 5 audits"
+        ];
 
         function Pipeline() {
             return (
                 <div className="glass-card rounded-2xl p-5">
                     <h4 className="font-display text-lg font-semibold text-white mb-4">
-                        📊 My Applications
+                        My Applications
                     </h4>
                     <div className="grid grid-cols-5 gap-2 text-center">
                         {['Saved','Applied','Short','Done','Paid'].map((stage, i) => (
@@ -407,10 +536,9 @@
         }
 
         function Checklist() {
-            const items = puneChecklistItems;
             const [checked, setChecked] = useState(() => {
                 const saved = localStorage.getItem('luxeChecklistPune');
-                return saved ? JSON.parse(saved) : Array(items.length).fill(false);
+                return saved ? JSON.parse(saved) : Array(checklistItems.length).fill(false);
             });
             
             const toggleCheck = (index) => {
@@ -425,11 +553,11 @@
             return (
                 <div className="glass-card rounded-2xl p-5">
                     <div className="flex justify-between items-center mb-4">
-                        <h4 className="font-display text-lg font-semibold text-white">✅ Profile Setup</h4>
-                        <span className="text-[#10B981] text-sm font-bold">{done}/{items.length}</span>
+                        <h4 className="font-display text-lg font-semibold text-white">Profile Setup</h4>
+                        <span className="text-[#10B981] text-sm font-bold">{done}/{checklistItems.length}</span>
                     </div>
                     <ul className="space-y-3">
-                        {items.map((item, index) => (
+                        {checklistItems.map((item, index) => (
                             <li key={index} className="flex items-start gap-3 py-2">
                                 <input 
                                     type="checkbox" 
@@ -447,31 +575,89 @@
             );
         }
 
-        // Main App
         function App() {
-            const [opportunities] = useState(puneOpportunities);
-            const [lastUpdate] = useState(new Date().toLocaleTimeString());
-            
-            const handleApply = (assignment) => {
+            const [opportunities, setOpportunities] = useState([]);
+            const [lastRefreshed, setLastRefreshed] = useState(DEFAULT_REFRESHED);
+            const [loading, setLoading] = useState(true);
+            const [error, setError] = useState(null);
+            const [tick, setTick] = useState(0);
+
+            useEffect(() => {
+                let cancelled = false;
+                async function load() {
+                    try {
+                        const res = await fetch('./data/offers.json?_=' + Date.now());
+                        if (!res.ok) throw new Error('Fetch failed');
+                        const data = await res.json();
+                        if (!cancelled) {
+                            const enhanced = enhanceOpportunities(data.opportunities || []);
+                            setOpportunities(enhanced);
+                            if (data.lastRefreshed) setLastRefreshed(data.lastRefreshed);
+                            setLoading(false);
+                        }
+                    } catch (err) {
+                        if (!cancelled) {
+                            console.warn('Failed to fetch offers.json, using fallback');
+                            setError('Using cached offers');
+                            setLoading(false);
+                        }
+                    }
+                }
+                load();
+                return () => { cancelled = true; };
+            }, []);
+
+            useEffect(() => {
+                const timer = setInterval(() => {
+                    setOpportunities(prev => enhanceOpportunities(
+                        prev.map(({ _closesInfo, ...o }) => o)
+                    ));
+                    setTick(t => t + 1);
+                }, 30000);
+                return () => clearInterval(timer);
+            }, []);
+
+            const handleApply = useCallback((assignment) => {
                 const url = platformUrls[assignment.platform];
                 if (url) {
                     window.open(url, '_blank');
-                    alert(`Applied to ${assignment.hotel}! Registration page opened in new tab.`);
                 }
-            };
+            }, []);
+
+            const activeCount = opportunities.length;
+            const totalValue = opportunities.reduce((s, a) => s + parseFloat(a.reimburse.replace(/[₹,]/g, '')), 0);
             
             return (
                 <div className="max-w-7xl mx-auto px-4 py-8">
-                    <Header lastUpdated={lastUpdate} />
+                    <Header 
+                        opportunities={opportunities} 
+                        lastRefreshed={lastRefreshed}
+                        activeCount={activeCount}
+                        totalValue={totalValue}
+                    />
                     <StatsRow opportunities={opportunities} />
                     <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                         <div className="lg:col-span-2">
-                            <AssignmentsList opportunities={opportunities} onApply={handleApply} />
+                            {loading ? (
+                                <div className="glass-card rounded-2xl p-12 text-center">
+                                    <div className="animate-pulse flex flex-col items-center gap-4">
+                                        <div className="w-12 h-12 border-4 border-gold border-t-transparent rounded-full animate-spin"></div>
+                                        <p className="text-[#8B8B8B]">Loading latest offers...</p>
+                                    </div>
+                                </div>
+                            ) : (
+                                <AssignmentsList opportunities={opportunities} onApply={handleApply} />
+                            )}
                         </div>
                         <div className="lg:col-span-1">
-                            <Sidebar opportunities={opportunities} onApply={handleApply} />
+                            <Sidebar opportunities={opportunities} onApply={handleApply} lastRefreshed={lastRefreshed} />
                         </div>
                     </div>
+                    {error && (
+                        <div className="mt-6 text-center">
+                            <p className="text-[#6B7280] text-xs">{error} — edit data/offers.json to update</p>
+                        </div>
+                    )}
                 </div>
             );
         }

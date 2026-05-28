@@ -1,0 +1,25 @@
+name: Refresh Expired Offers
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Filter expired offers
+        run: node scripts/update-offers.mjs
+      
+      - uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "auto: remove expired offers [skip ci]"
+          commit_author_name: "luxe-bot"
+          commit_author_email: "bot@luxeaudithunter.pages.dev"
+          file_pattern: data/offers.json
