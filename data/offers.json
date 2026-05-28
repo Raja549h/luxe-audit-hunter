@@ -1,49 +1,9 @@
 {
-  "lastRefreshed": "2026-05-28T10:01:08.461Z",
-  "nextRefresh": "2026-05-28T16:01:08.461Z",
+  "lastRefreshed": "2026-05-28T15:54:19.033Z",
+  "nextRefresh": "2026-05-28T21:54:19.033Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 15,
+  "totalOpportunities": 12,
   "opportunities": [
-    {
-      "id": 1,
-      "platform": "FloorWalk",
-      "hotel": "Hyatt Regency Pune Kalyani Nagar",
-      "chain": "Hyatt",
-      "total": "₹11.5K",
-      "pay": "₹2,000",
-      "reimburse": "₹9,500",
-      "deadline": "2026-05-28T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Spa visit + lunch evaluation",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "spa",
-        "wellness",
-        "lunch"
-      ],
-      "city": "Pune",
-      "valueScore": 85
-    },
-    {
-      "id": 2,
-      "platform": "FloorWalk",
-      "hotel": "The Ritz-Carlton Pune",
-      "chain": "Ritz-Carlton (Marriott)",
-      "total": "₹9.5K",
-      "pay": "₹2,000",
-      "reimburse": "₹7,500",
-      "deadline": "2026-05-28T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Premium lounge + cocktail bar",
-      "duration": "3 hr · 5-star deluxe",
-      "tags": [
-        "lounge",
-        "cocktails",
-        "bar"
-      ],
-      "city": "Pune",
-      "valueScore": 92
-    },
     {
       "id": 3,
       "platform": "FloorWalk",
@@ -202,25 +162,6 @@
       ],
       "city": "Pune",
       "valueScore": 78
-    },
-    {
-      "id": 11,
-      "platform": "Ipsos iShopForIpsos",
-      "hotel": "Hyatt Pune",
-      "chain": "Hyatt",
-      "total": "₹10K",
-      "pay": "₹1,800",
-      "reimburse": "₹8,200",
-      "deadline": "2026-05-28T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Lobby + concierge evaluation",
-      "duration": "3 hr · 5-star",
-      "tags": [
-        "lobby",
-        "concierge"
-      ],
-      "city": "Pune",
-      "valueScore": 86
     },
     {
       "id": 12,
