@@ -1,50 +1,9 @@
 {
-  "lastRefreshed": "2026-05-29T09:54:12.671Z",
-  "nextRefresh": "2026-05-29T15:54:12.671Z",
+  "lastRefreshed": "2026-05-29T15:30:11.104Z",
+  "nextRefresh": "2026-05-29T21:30:11.104Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 12,
+  "totalOpportunities": 10,
   "opportunities": [
-    {
-      "id": 3,
-      "platform": "FloorWalk",
-      "hotel": "JW Marriott Pune",
-      "chain": "JW Marriott",
-      "total": "₹25K",
-      "pay": "₹5,000",
-      "reimburse": "₹20,000",
-      "deadline": "2026-05-29T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Overnight stay + F&B + Spa",
-      "duration": "Overnight · 5-star",
-      "tags": [
-        "overnight",
-        "spa",
-        "F&B",
-        "couples"
-      ],
-      "city": "Pune",
-      "valueScore": 98
-    },
-    {
-      "id": 4,
-      "platform": "FloorWalk",
-      "hotel": "Marriott Suites Pune",
-      "chain": "Marriott",
-      "total": "₹18K",
-      "pay": "₹3,000",
-      "reimburse": "₹15,000",
-      "deadline": "2026-05-29T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Business lounge + breakfast",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "lounge",
-        "breakfast",
-        "business"
-      ],
-      "city": "Pune",
-      "valueScore": 89
-    },
     {
       "id": 5,
       "platform": "FloorWalk",
