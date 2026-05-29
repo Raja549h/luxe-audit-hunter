@@ -209,11 +209,12 @@
             const d = new Date(deadline);
             const now = new Date();
             const diffDays = Math.floor((d - now) / (1000 * 60 * 60 * 24));
+            const dateStr = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
             if (diffDays < 0) return 'CLOSED';
-            if (diffDays === 0) return 'Today';
-            if (diffDays === 1) return 'Tomorrow';
+            if (diffDays === 0) return `Today (${dateStr})`;
+            if (diffDays === 1) return `Tomorrow (${dateStr})`;
             if (diffDays <= 7) return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
-            return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+            return dateStr;
         }
 
         function enhanceOpportunities(opps, now) {
@@ -471,7 +472,10 @@
                                 {topPicks.map((item, i) => (
                                     <div key={i} className="p-3 bg-[#1E2028] rounded-xl border-l-4 border-gold">
                                         <div className="flex justify-between items-start mb-2">
-                                            <p className="text-white text-sm font-medium flex-1">{item.hotel}</p>
+                                            <div className="flex-1">
+                                                <p className="text-white text-sm font-medium">{item.hotel}</p>
+                                                <p className="text-[#8B8B8B] text-[10px]">{item.lastDate}</p>
+                                            </div>
                                             {item.closesDays <= 1 && <span className="text-red-400 text-xs font-bold">URGENT</span>}
                                         </div>
                                         <div className="flex justify-between items-center">
