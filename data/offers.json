@@ -1,48 +1,9 @@
 {
-  "lastRefreshed": "2026-05-30T08:27:44.622Z",
-  "nextRefresh": "2026-05-30T14:27:44.622Z",
+  "lastRefreshed": "2026-05-30T13:28:35.384Z",
+  "nextRefresh": "2026-05-30T19:28:35.384Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 10,
+  "totalOpportunities": 7,
   "opportunities": [
-    {
-      "id": 5,
-      "platform": "FloorWalk",
-      "hotel": "Sheraton Grand Pune",
-      "chain": "Marriott",
-      "total": "₹14K",
-      "pay": "₹2,500",
-      "reimburse": "₹11,500",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Club lounge evaluation",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "lounge",
-        "club"
-      ],
-      "city": "Pune",
-      "valueScore": 87
-    },
-    {
-      "id": 6,
-      "platform": "FloorWalk",
-      "hotel": "Novotel Pune Nagar Road",
-      "chain": "Accor",
-      "total": "₹12K",
-      "pay": "₹2,000",
-      "reimburse": "₹10,000",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Restaurant + bar evaluation",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "restaurant",
-        "bar",
-        "dining"
-      ],
-      "city": "Pune",
-      "valueScore": 88
-    },
     {
       "id": 7,
       "platform": "Bare International",
@@ -161,25 +122,6 @@
       ],
       "city": "Pune",
       "valueScore": 100
-    },
-    {
-      "id": 14,
-      "platform": "FloorWalk",
-      "hotel": "Fairfield by Marriott Pune",
-      "chain": "Marriott",
-      "total": "₹11K",
-      "pay": "₹1,800",
-      "reimburse": "₹9,200",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Pool + recreation area",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "pool",
-        "recreation"
-      ],
-      "city": "Pune",
-      "valueScore": 83
     },
     {
       "id": 15,
