@@ -1,29 +1,9 @@
 {
-  "lastRefreshed": "2026-05-31T08:44:58.931Z",
-  "nextRefresh": "2026-05-31T14:44:58.931Z",
+  "lastRefreshed": "2026-05-31T13:44:18.382Z",
+  "nextRefresh": "2026-05-31T19:44:18.382Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 7,
+  "totalOpportunities": 5,
   "opportunities": [
-    {
-      "id": 7,
-      "platform": "Bare International",
-      "hotel": "The Westin Pune",
-      "chain": "Marriott",
-      "total": "₹16K",
-      "pay": "₹2,800",
-      "reimburse": "₹13,200",
-      "deadline": "2026-05-31T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Spa + fitness center audit",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "spa",
-        "fitness",
-        "wellness"
-      ],
-      "city": "Pune",
-      "valueScore": 90
-    },
     {
       "id": 8,
       "platform": "Shaw Hotels & Consultancy",
@@ -43,26 +23,6 @@
       ],
       "city": "Pune",
       "valueScore": 82
-    },
-    {
-      "id": 9,
-      "platform": "HS Brands",
-      "hotel": "The Four Points Pune",
-      "chain": "Marriott",
-      "total": "₹13K",
-      "pay": "₹2,200",
-      "reimburse": "₹10,800",
-      "deadline": "2026-05-31T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Restaurant audit + dinner",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "restaurant",
-        "dinner",
-        "F&B"
-      ],
-      "city": "Pune",
-      "valueScore": 85
     },
     {
       "id": 10,
