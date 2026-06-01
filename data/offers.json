@@ -1,29 +1,9 @@
 {
-  "lastRefreshed": "2026-06-01T11:33:26.790Z",
-  "nextRefresh": "2026-06-01T17:33:26.790Z",
+  "lastRefreshed": "2026-06-01T17:37:56.791Z",
+  "nextRefresh": "2026-06-01T23:37:56.791Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 5,
+  "totalOpportunities": 4,
   "opportunities": [
-    {
-      "id": 8,
-      "platform": "Shaw Hotels & Consultancy",
-      "hotel": "The Conrad Pune",
-      "chain": "Hilton",
-      "total": "₹28K",
-      "pay": "₹4,500",
-      "reimburse": "₹23,500",
-      "deadline": "2026-06-01T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Overnight + executive lounge",
-      "duration": "Overnight · 5-star",
-      "tags": [
-        "overnight",
-        "lounge",
-        "business"
-      ],
-      "city": "Pune",
-      "valueScore": 82
-    },
     {
       "id": 10,
       "platform": "RedQuanta",
