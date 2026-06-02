@@ -1,28 +1,9 @@
 {
-  "lastRefreshed": "2026-06-02T10:23:17.238Z",
-  "nextRefresh": "2026-06-02T16:23:17.238Z",
+  "lastRefreshed": "2026-06-02T16:24:08.811Z",
+  "nextRefresh": "2026-06-02T22:24:08.811Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 4,
+  "totalOpportunities": 2,
   "opportunities": [
-    {
-      "id": 10,
-      "platform": "RedQuanta",
-      "hotel": "Radisson Blu Pune",
-      "chain": "Radisson",
-      "total": "₹15K",
-      "pay": "₹2,500",
-      "reimburse": "₹12,500",
-      "deadline": "2026-06-02T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Breakfast buffet + service",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "breakfast",
-        "service"
-      ],
-      "city": "Pune",
-      "valueScore": 78
-    },
     {
       "id": 12,
       "platform": "Tophawks",
@@ -62,26 +43,6 @@
       ],
       "city": "Pune",
       "valueScore": 100
-    },
-    {
-      "id": 15,
-      "platform": "Bare International",
-      "hotel": "The Serena Pune",
-      "chain": "Serena Hotels",
-      "total": "₹20K",
-      "pay": "₹3,500",
-      "reimburse": "₹16,500",
-      "deadline": "2026-06-02T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Fine dining + room service",
-      "duration": "Overnight · 5-star",
-      "tags": [
-        "dining",
-        "room-service",
-        "luxury"
-      ],
-      "city": "Pune",
-      "valueScore": 80
     }
   ]
 }
