@@ -1,28 +1,9 @@
 {
-  "lastRefreshed": "2026-06-03T10:58:49.722Z",
-  "nextRefresh": "2026-06-03T16:58:49.722Z",
+  "lastRefreshed": "2026-06-03T16:48:14.067Z",
+  "nextRefresh": "2026-06-03T22:48:14.067Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 2,
+  "totalOpportunities": 1,
   "opportunities": [
-    {
-      "id": 12,
-      "platform": "Tophawks",
-      "hotel": "Courtyard Pune",
-      "chain": "Marriott",
-      "total": "₹12K",
-      "pay": "₹2,000",
-      "reimburse": "₹10,000",
-      "deadline": "2026-06-03T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Meeting rooms + business center",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "business",
-        "meetings"
-      ],
-      "city": "Pune",
-      "valueScore": 75
-    },
     {
       "id": 13,
       "platform": "Coyle Hospitality",
