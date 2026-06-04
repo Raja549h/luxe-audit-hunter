@@ -1,29 +1,7 @@
 {
-  "lastRefreshed": "2026-06-04T09:55:37.172Z",
-  "nextRefresh": "2026-06-04T15:55:37.172Z",
+  "lastRefreshed": "2026-06-04T15:14:10.375Z",
+  "nextRefresh": "2026-06-04T21:14:10.375Z",
   "source": "https://luxe-audit-hunter.pages.dev",
-  "totalOpportunities": 1,
-  "opportunities": [
-    {
-      "id": 13,
-      "platform": "Coyle Hospitality",
-      "hotel": "Taj Pune",
-      "chain": "Taj Hotels",
-      "total": "₹45K",
-      "pay": "₹7,000",
-      "reimburse": "₹38,000",
-      "deadline": "2026-06-04T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Two-night brand standards audit",
-      "duration": "Overnight · 5-star deluxe",
-      "tags": [
-        "overnight",
-        "two-night",
-        "concierge",
-        "luxury"
-      ],
-      "city": "Pune",
-      "valueScore": 100
-    }
-  ]
+  "totalOpportunities": 0,
+  "opportunities": []
 }
