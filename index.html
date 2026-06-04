@@ -399,7 +399,7 @@
             );
         }
 
-        function AssignmentsList({ opportunities, onApply }) {
+        function AssignmentsList({ opportunities, onApply, nextRefresh }) {
             const sorted = [...opportunities].sort((a, b) => {
                 const aUrgent = a.urgency === 'URGENT' || a.urgency === 'High';
                 const bUrgent = b.urgency === 'URGENT' || b.urgency === 'High';
@@ -437,7 +437,12 @@
                         <div className="glass-card rounded-2xl p-12 text-center">
                             <div className="text-5xl mb-4">🔍</div>
                             <h3 className="font-display text-2xl font-semibold text-white mb-2">No active offers right now</h3>
-                            <p className="text-[#8B8B8B]">New Pune assignments appear here as platforms publish them. Check back soon.</p>
+                            <p className="text-[#8B8B8B] mb-4">New Pune assignments appear here as platforms publish them. Check back soon.</p>
+                            {nextRefresh && (
+                                <p className="text-gold text-xs font-mono">
+                                    Next automated scan: {new Date(nextRefresh).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                                </p>
+                            )}
                         </div>
                     ) : (
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -581,6 +586,7 @@
         function App() {
             const [opportunities, setOpportunities] = useState([]);
             const [lastRefreshed, setLastRefreshed] = useState(DEFAULT_REFRESHED);
+            const [nextRefresh, setNextRefresh] = useState(null);
             const [loading, setLoading] = useState(true);
             const [error, setError] = useState(null);
             const [tick, setTick] = useState(0);
@@ -596,6 +602,7 @@
                             const enhanced = enhanceOpportunities(data.opportunities || []);
                             setOpportunities(enhanced);
                             if (data.lastRefreshed) setLastRefreshed(data.lastRefreshed);
+                            if (data.nextRefresh) setNextRefresh(data.nextRefresh);
                             setLoading(false);
                         }
                     } catch (err) {
@@ -649,7 +656,11 @@
                                     </div>
                                 </div>
                             ) : (
-                                <AssignmentsList opportunities={opportunities} onApply={handleApply} />
+                                <AssignmentsList
+                                    opportunities={opportunities}
+                                    onApply={handleApply}
+                                    nextRefresh={nextRefresh}
+                                />
                             )}
                         </div>
                         <div className="lg:col-span-1">

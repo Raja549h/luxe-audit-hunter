@@ -1,187 +1,9 @@
 {
-  "lastRefreshed": "2026-05-29T03:34:40.524Z",
-  "nextRefresh": "2026-05-29T09:34:40.524Z",
+  "lastRefreshed": "2026-06-04T02:54:47.540Z",
+  "nextRefresh": "2026-06-04T08:54:47.540Z",
   "source": "https://luxe-audit-hunter.pages.dev",
   "totalOpportunities": 12,
   "opportunities": [
-    {
-      "id": 3,
-      "platform": "FloorWalk",
-      "hotel": "JW Marriott Pune",
-      "chain": "JW Marriott",
-      "total": "₹25K",
-      "pay": "₹5,000",
-      "reimburse": "₹20,000",
-      "deadline": "2026-05-29T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Overnight stay + F&B + Spa",
-      "duration": "Overnight · 5-star",
-      "tags": [
-        "overnight",
-        "spa",
-        "F&B",
-        "couples"
-      ],
-      "city": "Pune",
-      "valueScore": 98
-    },
-    {
-      "id": 4,
-      "platform": "FloorWalk",
-      "hotel": "Marriott Suites Pune",
-      "chain": "Marriott",
-      "total": "₹18K",
-      "pay": "₹3,000",
-      "reimburse": "₹15,000",
-      "deadline": "2026-05-29T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Business lounge + breakfast",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "lounge",
-        "breakfast",
-        "business"
-      ],
-      "city": "Pune",
-      "valueScore": 89
-    },
-    {
-      "id": 5,
-      "platform": "FloorWalk",
-      "hotel": "Sheraton Grand Pune",
-      "chain": "Marriott",
-      "total": "₹14K",
-      "pay": "₹2,500",
-      "reimburse": "₹11,500",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Club lounge evaluation",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "lounge",
-        "club"
-      ],
-      "city": "Pune",
-      "valueScore": 87
-    },
-    {
-      "id": 6,
-      "platform": "FloorWalk",
-      "hotel": "Novotel Pune Nagar Road",
-      "chain": "Accor",
-      "total": "₹12K",
-      "pay": "₹2,000",
-      "reimburse": "₹10,000",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Restaurant + bar evaluation",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "restaurant",
-        "bar",
-        "dining"
-      ],
-      "city": "Pune",
-      "valueScore": 88
-    },
-    {
-      "id": 7,
-      "platform": "Bare International",
-      "hotel": "The Westin Pune",
-      "chain": "Marriott",
-      "total": "₹16K",
-      "pay": "₹2,800",
-      "reimburse": "₹13,200",
-      "deadline": "2026-05-31T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Spa + fitness center audit",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "spa",
-        "fitness",
-        "wellness"
-      ],
-      "city": "Pune",
-      "valueScore": 90
-    },
-    {
-      "id": 8,
-      "platform": "Shaw Hotels & Consultancy",
-      "hotel": "The Conrad Pune",
-      "chain": "Hilton",
-      "total": "₹28K",
-      "pay": "₹4,500",
-      "reimburse": "₹23,500",
-      "deadline": "2026-06-01T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Overnight + executive lounge",
-      "duration": "Overnight · 5-star",
-      "tags": [
-        "overnight",
-        "lounge",
-        "business"
-      ],
-      "city": "Pune",
-      "valueScore": 82
-    },
-    {
-      "id": 9,
-      "platform": "HS Brands",
-      "hotel": "The Four Points Pune",
-      "chain": "Marriott",
-      "total": "₹13K",
-      "pay": "₹2,200",
-      "reimburse": "₹10,800",
-      "deadline": "2026-05-31T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Restaurant audit + dinner",
-      "duration": "5 hr · 5-star",
-      "tags": [
-        "restaurant",
-        "dinner",
-        "F&B"
-      ],
-      "city": "Pune",
-      "valueScore": 85
-    },
-    {
-      "id": 10,
-      "platform": "RedQuanta",
-      "hotel": "Radisson Blu Pune",
-      "chain": "Radisson",
-      "total": "₹15K",
-      "pay": "₹2,500",
-      "reimburse": "₹12,500",
-      "deadline": "2026-06-02T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Breakfast buffet + service",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "breakfast",
-        "service"
-      ],
-      "city": "Pune",
-      "valueScore": 78
-    },
-    {
-      "id": 12,
-      "platform": "Tophawks",
-      "hotel": "Courtyard Pune",
-      "chain": "Marriott",
-      "total": "₹12K",
-      "pay": "₹2,000",
-      "reimburse": "₹10,000",
-      "deadline": "2026-06-03T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Meeting rooms + business center",
-      "duration": "4 hr · 5-star",
-      "tags": [
-        "business",
-        "meetings"
-      ],
-      "city": "Pune",
-      "valueScore": 75
-    },
     {
       "id": 13,
       "platform": "Coyle Hospitality",
@@ -205,42 +27,212 @@
     },
     {
       "id": 14,
-      "platform": "FloorWalk",
-      "hotel": "Fairfield by Marriott Pune",
-      "chain": "Marriott",
-      "total": "₹11K",
-      "pay": "₹1,800",
-      "reimburse": "₹9,200",
-      "deadline": "2026-05-30T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Pool + recreation area",
-      "duration": "4 hr · 5-star",
+      "platform": "Bare International",
+      "hotel": "Conrad Pune",
+      "chain": "Hilton",
+      "eval": "Overnight + executive lounge",
       "tags": [
-        "pool",
-        "recreation"
+        "overnight",
+        "lounge"
       ],
+      "total": "₹28K",
+      "pay": "₹4,500",
+      "reimburse": "₹23,500",
+      "deadline": "2026-06-08T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "Overnight · 5-star",
+      "city": "Pune",
+      "valueScore": 97
+    },
+    {
+      "id": 15,
+      "platform": "Coyle Hospitality",
+      "hotel": "The Ritz-Carlton Pune",
+      "chain": "Ritz-Carlton",
+      "eval": "Premium lounge + cocktail bar",
+      "tags": [
+        "lounge",
+        "cocktails"
+      ],
+      "total": "₹9.5K",
+      "pay": "₹2,000",
+      "reimburse": "₹7,500",
+      "deadline": "2026-06-05T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 81
+    },
+    {
+      "id": 16,
+      "platform": "FloorWalk",
+      "hotel": "The Westin Pune",
+      "chain": "Marriott",
+      "eval": "Spa + fitness audit",
+      "tags": [
+        "spa",
+        "fitness"
+      ],
+      "total": "₹16K",
+      "pay": "₹2,800",
+      "reimburse": "₹13,200",
+      "deadline": "2026-06-06T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 86
+    },
+    {
+      "id": 17,
+      "platform": "Bare International",
+      "hotel": "Hyatt Regency Pune",
+      "chain": "Hyatt",
+      "eval": "Spa visit + lunch",
+      "tags": [
+        "spa",
+        "lunch"
+      ],
+      "total": "₹11.5K",
+      "pay": "₹2,000",
+      "reimburse": "₹9,500",
+      "deadline": "2026-06-08T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 95
+    },
+    {
+      "id": 18,
+      "platform": "RedQuanta",
+      "hotel": "The Ritz-Carlton Pune",
+      "chain": "Ritz-Carlton",
+      "eval": "Premium lounge + cocktail bar",
+      "tags": [
+        "lounge",
+        "cocktails"
+      ],
+      "total": "₹9.5K",
+      "pay": "₹2,000",
+      "reimburse": "₹7,500",
+      "deadline": "2026-06-08T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 87
+    },
+    {
+      "id": 19,
+      "platform": "FloorWalk",
+      "hotel": "Sheraton Grand Pune",
+      "chain": "Marriott",
+      "eval": "Club lounge evaluation",
+      "tags": [
+        "lounge",
+        "club"
+      ],
+      "total": "₹14K",
+      "pay": "₹2,500",
+      "reimburse": "₹11,500",
+      "deadline": "2026-06-05T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
       "city": "Pune",
       "valueScore": 83
     },
     {
-      "id": 15,
-      "platform": "Bare International",
-      "hotel": "The Serena Pune",
-      "chain": "Serena Hotels",
-      "total": "₹20K",
-      "pay": "₹3,500",
-      "reimburse": "₹16,500",
-      "deadline": "2026-06-02T18:00:00+05:30",
-      "location": "Pune, Maharashtra",
-      "eval": "Fine dining + room service",
-      "duration": "Overnight · 5-star",
+      "id": 20,
+      "platform": "RedQuanta",
+      "hotel": "The Ritz-Carlton Pune",
+      "chain": "Ritz-Carlton",
+      "eval": "Premium lounge + cocktail bar",
       "tags": [
-        "dining",
-        "room-service",
-        "luxury"
+        "lounge",
+        "cocktails"
       ],
+      "total": "₹9.5K",
+      "pay": "₹2,000",
+      "reimburse": "₹7,500",
+      "deadline": "2026-06-09T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
       "city": "Pune",
-      "valueScore": 80
+      "valueScore": 99
+    },
+    {
+      "id": 21,
+      "platform": "RedQuanta",
+      "hotel": "Sheraton Grand Pune",
+      "chain": "Marriott",
+      "eval": "Club lounge evaluation",
+      "tags": [
+        "lounge",
+        "club"
+      ],
+      "total": "₹14K",
+      "pay": "₹2,500",
+      "reimburse": "₹11,500",
+      "deadline": "2026-06-05T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 96
+    },
+    {
+      "id": 22,
+      "platform": "Bare International",
+      "hotel": "Sheraton Grand Pune",
+      "chain": "Marriott",
+      "eval": "Club lounge evaluation",
+      "tags": [
+        "lounge",
+        "club"
+      ],
+      "total": "₹14K",
+      "pay": "₹2,500",
+      "reimburse": "₹11,500",
+      "deadline": "2026-06-09T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 86
+    },
+    {
+      "id": 23,
+      "platform": "Coyle Hospitality",
+      "hotel": "Sheraton Grand Pune",
+      "chain": "Marriott",
+      "eval": "Club lounge evaluation",
+      "tags": [
+        "lounge",
+        "club"
+      ],
+      "total": "₹14K",
+      "pay": "₹2,500",
+      "reimburse": "₹11,500",
+      "deadline": "2026-06-09T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 90
+    },
+    {
+      "id": 24,
+      "platform": "FloorWalk",
+      "hotel": "Hyatt Regency Pune",
+      "chain": "Hyatt",
+      "eval": "Spa visit + lunch",
+      "tags": [
+        "spa",
+        "lunch"
+      ],
+      "total": "₹11.5K",
+      "pay": "₹2,000",
+      "reimburse": "₹9,500",
+      "deadline": "2026-06-09T18:00:00.000+05:30",
+      "location": "Pune, Maharashtra",
+      "duration": "4 hr · 5-star",
+      "city": "Pune",
+      "valueScore": 87
     }
   ]
 }
